@@ -2,40 +2,33 @@ package tests;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-
-import java.util.List;
+import pageObject.GoogleMainPage;
+import pageObject.GoogleResultsPage;
 
 public class AutomationTests extends BaseTest {
 
 
     @Test
     public void googleSearch() {
+        String searchWord = "automation";
 
+        GoogleMainPage googleMainPage = new GoogleMainPage(driver);
+        googleMainPage.search(searchWord);
 
-//      find the search field enter search text and click "enter"
-        String SearchWord = "automation";
-        driver.findElement(By.xpath("//input[@name='q']")).sendKeys(SearchWord);
-        WebElement searchBtn = driver.findElement(By.xpath("//input[@name='q']"));
-        searchBtn.submit();
-
-        //check the title of the result page
-        String actualPageTitle = driver.getTitle();
-        Assert.assertTrue(actualPageTitle.contains(SearchWord));
+        Assert.assertTrue(googleMainPage.getTitle().contains(searchWord));
     }
 
     @Test
     public void googleSearchSecondPhrase() {
-        String SearchWord1 = "automation tests";
-        String SearchedURL = "www.guru99.com";
+        String searchWord = "automation tests";
+        String searchedURL = "www.guru99.com";
 
-        driver.findElement(By.xpath("//input[@name='q']")).sendKeys(SearchWord1);
-        WebElement webElement = driver.findElement(By.xpath("//input[@name='q']"));
-        webElement.submit();
+        GoogleMainPage googleMainPage = new GoogleMainPage(driver);
+        googleMainPage.search(searchWord);
 
-        List<WebElement> l = driver.findElements(By.xpath("//*[@id=\"rso\"]/div[3]/div/div[1]/a/div/cite"));
-        l.toString().contains(SearchedURL);
+        GoogleResultsPage googleResultsPage = new GoogleResultsPage(driver);
+        boolean isLinkWithSearchedUrlPresent = googleResultsPage.isAnyLinkContainsUrl(searchedURL);
+
+        Assert.assertTrue("Our searched URL is not present in any link", isLinkWithSearchedUrlPresent);
     }
-
 }

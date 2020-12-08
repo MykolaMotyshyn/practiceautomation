@@ -1,5 +1,6 @@
 package tests;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.WebDriver;
@@ -13,13 +14,11 @@ public class BaseTest {
 
     @Before
     public void startBrowser() {
-        //driver instance
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Mykola_Motyshyn\\Downloads\\drivers\\chromedriver.exe");
+        WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
         driver.manage().window().maximize();
 
-        //visit google search page
         String URL = "https:\\www.google.com.ua";
         driver.get(URL);
     }
