@@ -1,4 +1,4 @@
-package garage.home.development;
+package tests;
 
 import org.junit.Assert;
 import org.junit.Test;
