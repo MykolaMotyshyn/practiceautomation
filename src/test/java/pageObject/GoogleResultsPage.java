@@ -12,13 +12,12 @@ public class GoogleResultsPage extends BasePage {
         super(driver);
     }
 
-    @FindBy(xpath = "//div[@class='yuRUbf']/a")
+    @FindBy(xpath = "//*[@class='x2VHCd OSrXXb ob9lvb']")
     public List<WebElement> resultLinks;
 
     public boolean isAnyLinkContainsUrl(String url) {
-        boolean isLinkWithSearchedUrlPresent = resultLinks.stream()
+        return resultLinks.stream()
                 .map(WebElement::getText)
                 .anyMatch(linkText -> linkText.contains(url));
-        return isLinkWithSearchedUrlPresent;
     }
 }

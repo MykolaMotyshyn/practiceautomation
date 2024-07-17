@@ -10,7 +10,7 @@ public class GoogleMainPage extends BasePage {
         super(driver);
     }
 
-    @FindBy(xpath = "//input[@name='q']")
+    @FindBy(xpath = "//*[@name='q']")
     public WebElement searchField;
 
     public void search(String qwery) {
